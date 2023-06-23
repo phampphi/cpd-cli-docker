@@ -8,14 +8,14 @@ ENV CPD_PROFILE=cpd-profile
 ENV VERSION=cpd-cli-linux-SE-12.0.6
 ENV SUB_VERSION=cpd-cli-linux-SE-12.0.6-63
 
-COPY ./rootfs /home
-RUN cd /home && \
+COPY ./rootfs /usr/bin
+RUN cd /usr/bin && \
     wget https://github.com/IBM/cpd-cli/releases/download/v12.0.6/$VERSION.tgz && \
-    tar zxvf /home/$VERSION.tgz && rm -rf /home/$VERSION.tgz && \
-    mv /home/$SUB_VERSION /home/bin && \
-    chmod +x /home/entrypoint.sh
+    tar zxvf /usr/bin/$VERSION.tgz && rm -rf /usr/bin/$VERSION.tgz && \
+    mv /usr/bin/$SUB_VERSION /usr/bin/cpd-cli && \
+    chmod +x /usr/bin/entrypoint.sh
 
-WORKDIR /home/bin
+WORKDIR /usr/bin/cpd-cli
 
-ENTRYPOINT ["/home/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 CMD ["cpd-cli"]
